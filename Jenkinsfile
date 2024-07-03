@@ -19,6 +19,5 @@ node('built-in')
     }
     stage('continuous delivery')
     {
-        deploy adapters: [tomcat9(credentialsId: 'eb6c38f0-5016-4fed-9063-326a1e64d126', path: '', url: 'http://172.31.27.69:8080')], contextPath: 'prodapp', war: '**/*.war'
-    }
-}
+        deploy adapters: [tomcat9(credentialsId: 'eb6c38f0-5016-4fed-9063-326a1e64d126', path: '', url: 'http://172.31.27.6}
+
