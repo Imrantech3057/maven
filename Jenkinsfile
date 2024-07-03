@@ -1,23 +1,25 @@
-node('built-in') 
+@Library('mylibrary')_
+node ('built-in')
 {
-    stage('continuous download')
+    stage('download')
     {
-        git 'https://github.com/Imrantech3057/maven.git'
+        cicd.download("maven")
     }
-    stage('continuous build')
+      stage('build')
     {
-        sh 'mvn package'
+        cicd.build()
     }
-    stage('continuous deploy')
+    stage('deploy')
     {
-        deploy adapters: [tomcat9(credentialsId: 'eb6c38f0-5016-4fed-9063-326a1e64d126', path: '', url: 'http://172.31.22.103:8080')], contextPath: 'testapp', war: '**/*.war'
+        cicd.deploy("scriptpipeshared","172.31.22.103","testingapp")
     }
-    stage('continuous testing')
+    stage('test')
     {
-        git 'https://github.com/Imrantech3057/FunctionalTesting.git'
-        sh 'java -jar /var/lib/jenkins/workspace/ScriptedPipeline/testing.jar'
+        cicd.download("FunctionalTesting")
+        cicd.runselenium("scriptpipeshared")
     }
-    stage('continuous delivery')
+    stage('delivery')
     {
-        deploy adapters: [tomcat9(credentialsId: 'eb6c38f0-5016-4fed-9063-326a1e64d126', path: '', url: 'http://172.31.27.6}
-
+        cicd.deploy("scriptpipeshared","172.31.27.69","produapp")
+    }
+}
